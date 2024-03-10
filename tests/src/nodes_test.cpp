@@ -12,4 +12,5 @@ TEST(nodes_test, add_child) {
 	root_node->addChild(std::move(child_node));
 
 	EXPECT_EQ(root_node->getContainer().size(), 1U);
+	EXPECT_EQ("questWindow", root_node->getContainer().front()->getParams().name);
 }
