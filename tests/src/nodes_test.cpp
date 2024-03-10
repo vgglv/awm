@@ -1,16 +1,27 @@
 #include "gtest/gtest.h"
-#include <memory>
 #include "awm_node.h"
 
 TEST(nodes_test, add_child) {
-	awm::NodeParam param;
-	param.name = "MainScene";
-	auto root_node = std::make_unique<awm::Node>(param);
+	auto root_node = new awm::Node("main_scene");
 
-	param.name = "questWindow";
-	auto child_node = std::make_unique<awm::Node>(param);
+	auto child_node = new awm::Node("quest_window");
 	root_node->addChild(std::move(child_node));
 
 	EXPECT_EQ(root_node->getContainer().size(), 1U);
-	EXPECT_EQ("questWindow", root_node->getContainer().front()->getParams().name);
+	EXPECT_EQ("quest_window", root_node->getContainer().front()->getNodeId());
+}
+
+TEST(nodes_test, tree_test) {
+	int size = 1000;
+	awm::Node* saved_root = new awm::Node("root");
+	awm::Node* previous_pointer = saved_root;
+	awm::Node* last_element = nullptr;
+	for (int i=0;i<size;i++) {
+		auto new_pointer = new awm::Node(std::to_string(i));
+		previous_pointer->addChild(new_pointer);
+		previous_pointer = new_pointer;
+	}
+	auto result = saved_root->findChildByNameRecursively("999");
+	EXPECT_EQ(previous_pointer,result); 
+	delete saved_root;
 }

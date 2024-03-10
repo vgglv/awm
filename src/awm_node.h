@@ -1,21 +1,36 @@
 #pragma once
-#include "awm_node_param.h"
 #include <vector>
-#include <memory>
+#include <string>
+#include "components/awm_component_base.h"
 
 namespace awm {
 	class Node {
 	public:
-		explicit Node(NodeParam _params);
+		explicit Node(const std::string& _nodeId);
 		~Node();
-		const NodeParam& getParams();
+		const std::string& getNodeId();
 
-		void addChild(std::unique_ptr<Node> child);
-		void deleteChild(std::unique_ptr<Node> child);
+		/*
+		 * Adds a child to a container.
+		 * Don't make manual calls to this function. Make this calls from external gui editor.
+		 */
+		void addChild(Node* child);
 
-		const std::vector<std::unique_ptr<Node>>& getContainer();
-	private: 
-		NodeParam params;
-		std::vector<std::unique_ptr<Node>> children_vector;
+		const std::vector<Node*>& getContainer();
+
+		/*
+		 * Searches for child among all children recursively.
+		 * Returns nullptr when not found.
+		 */
+		Node* findChildByNameRecursively(const std::string& childId);
+		Node* findChildByName(const std::string& childId);
+
+		void updateComponents(float delta);
+		void drawComponents();
+		void initializeComponents();
+	private:
+		std::string nodeId;
+		std::vector<Node*> children_vector;
+		std::vector<components::ComponentBase*> components_vector;
 	};
 }
