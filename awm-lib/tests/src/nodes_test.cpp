@@ -12,7 +12,7 @@ TEST(nodes_test, add_child) {
 }
 
 TEST(nodes_test, tree_test) {
-	int size = 1000;
+	int size = 100000;
 	awm::Node* saved_root = new awm::Node("root");
 	awm::Node* previous_pointer = saved_root;
 	awm::Node* last_element = nullptr;
@@ -21,7 +21,7 @@ TEST(nodes_test, tree_test) {
 		previous_pointer->addChild(new_pointer);
 		previous_pointer = new_pointer;
 	}
-	auto result = saved_root->findChildByNameRecursively("999");
+	auto result = saved_root->findChildByNameRecursively("99999");
 	EXPECT_EQ(previous_pointer,result); 
 	delete saved_root;
 }

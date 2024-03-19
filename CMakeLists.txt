@@ -1,16 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
-project(awm)
+project(awm_client)
 
-file(GLOB_RECURSE SOURCES 
-	"src/*.cpp"
-	"src/*.h"
-	)
+set(AWM_SAFETY_ON 1)
 
-add_library(awm ${SOURCES})
-target_include_directories(awm PUBLIC "src")
+add_subdirectory(awm-lib)
 
-option(AWM_BUILD_TESTS "Build tests executable" OFF)
-
-if (AWM_BUILD_TESTS)
-	add_subdirectory(tests)
-endif(AWM_BUILD_TESTS)

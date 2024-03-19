@@ -1,0 +1,3 @@
+[submodule "awm-lib/dependencies/jsoncpp"]
+	path = awm-lib/dependencies/jsoncpp
+	url = git@github.com:vgglv/jsoncpp.git

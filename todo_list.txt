@@ -1,15 +1,7 @@
-Required: create an abstract classes in order to use in awmscript library
+End goal: client that handles rendering, server that handles game logic.
 
-End goal: simple window editor. It should work with any engine, since everything is abstract and could be interfaced.
+ToDo:
 
-1. Simple addChild, deleteChild - DONE
-	1.1 More tests - TODO
-2. More parameters for NodeParam - TODO
-3. Parser from json - TODO
-	We have briefingWindow.json -> Node{}, simple as that
-4. Components - TODO
-	4.1. TransformComponent - TODO
-	4.2. LocaleComponent - TODO
-	4.3. FontComponent - TODO
-	4.4. TextureComponent - TODO
-5. Add ability for users to create their own components - TODO
+[] write a simple localhost server in tcp
+[] write a nodetree style rendering for client
+

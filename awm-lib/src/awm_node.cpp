@@ -1,22 +1,26 @@
 #include "awm_node.h"
 #include <algorithm>
+#include <cassert>
 #include <utility>
+#include <iostream>
 
 using namespace awm;
 
 Node::Node(const std::string& _nodeId) : nodeId(_nodeId) {
-
 }
 
 Node::~Node() {
-	for (auto child : children_vector) {
-		delete child;
+	auto children_iterator = children_vector.begin();
+	while (children_iterator != children_vector.end()) {
+		delete (*children_iterator);
+		++children_iterator;
 	}
-	children_vector.clear();
-	for (auto component : components_vector) {
-		delete component;
+
+	auto component_iterator = components_vector.begin();
+	while (component_iterator != components_vector.end()) {
+		delete (*component_iterator);
+		++component_iterator;
 	}
-	components_vector.clear();
 }
 
 const std::string& Node::getNodeId() {
@@ -24,6 +28,11 @@ const std::string& Node::getNodeId() {
 }
 
 void Node::addChild(Node* child) {
+#if defined(AWM_SAFETY_ON)
+	if (isMyChild(child)) {
+		assert(false && "Im adding my own child as child!");
+	}
+#endif
 	children_vector.emplace_back(std::move(child));
 }
 
@@ -71,4 +80,9 @@ void Node::initializeComponents() {
 	for (const auto& component : components_vector) {
 		component->initialize();
 	}
+}
+
+bool Node::isMyChild(Node* _node_ptr) {
+	const auto& it = std::find(children_vector.begin(), children_vector.end(), _node_ptr); 
+	return it != children_vector.end();
 }

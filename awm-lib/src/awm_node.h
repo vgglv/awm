@@ -22,13 +22,14 @@ namespace awm {
 		 * Searches for child among all children recursively.
 		 * Returns nullptr when not found.
 		 */
-		Node* findChildByNameRecursively(const std::string& childId);
-		Node* findChildByName(const std::string& childId);
+		Node* findChildByNameRecursively(const std::string& child_id);
+		Node* findChildByName(const std::string& child_id);
 
 		void updateComponents(float delta);
 		void drawComponents();
 		void initializeComponents();
 	private:
+		bool isMyChild(Node* _node_ptr);
 		std::string nodeId;
 		std::vector<Node*> children_vector;
 		std::vector<components::ComponentBase*> components_vector;

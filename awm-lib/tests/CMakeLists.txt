@@ -15,14 +15,14 @@ enable_testing()
 
 file(GLOB_RECURSE TEST_SOURCES
 	"${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
-	)
+)
 set(TESTS_TARGET awm_unit_tests)
 add_executable(
 		${TESTS_TARGET}
 		${TEST_SOURCES}
 )
 
-target_link_libraries(${TESTS_TARGET} gtest gmock awm)
+target_link_libraries(${TESTS_TARGET} gtest gmock awm-lib)
 
 include(GoogleTest)
 gtest_discover_tests(${TESTS_TARGET})
